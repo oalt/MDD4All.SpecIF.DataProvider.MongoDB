@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDD4All.SpecIF.DataProvider.MongoDB", "MDD4All.SpecIF.DataProvider.MongoDB\MDD4All.SpecIF.DataProvider.MongoDB.csproj", "{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F095DDA2-B1D9-40B2-B906-07379D08B419}"
+	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
+		version.txt = version.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}.Debug|x86.ActiveCfg = Debug|x86
+		{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}.Debug|x86.Build.0 = Debug|x86
+		{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}.Release|x86.ActiveCfg = Release|x86
+		{5A2EB8BB-D21E-48A8-9731-CE69071E4C6B}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9A4AD8AB-2061-420F-B348-6CA2A58676DF}
+	EndGlobalSection
+EndGlobal
