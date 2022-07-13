@@ -450,22 +450,6 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             return result;
         }
 
-        protected override IdentifiableElement GetItemWithLatestRevisionInBranch<T>(string id, string branch)
-        {
-            IdentifiableElement result = null;
-
-            if(typeof(T) == typeof(Resource))
-            {
-                result = _resourceMongoDbAccessor.GetItemWithLatestRevisionInBranch(id, branch);
-            }
-            else if(typeof(T) == typeof(Statement))
-            {
-                result = _statementMongoDbAccessor.GetItemWithLatestRevisionInBranch(id, branch);
-            }
-
-            return result;
-        }
-
         private const string DEFAULT_PROJECT = "PRJ-DEFAULT";
 
         public override void AddProject(ISpecIfMetadataWriter metadataWriter,

@@ -144,9 +144,19 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 
 		public override string GetLatestResourceRevisionForBranch(string resourceID, string branchName)
 		{
-			Resource resource = _resourceMongoDbAccessor.GetItemWithLatestRevisionInBranch(resourceID, branchName);
+            string result = "";
 
-			return resource.Revision;
+            //Resource resource = _resourceMongoDbAccessor.GetItemWithLatestRevisionInBranch(resourceID, branchName);
+
+            //return resource.Revision;
+
+            Resource resource = _resourceMongoDbAccessor.GetItemWithLatestRevision(resourceID);
+            if (resource == null)
+            {
+                result = resource.Revision;
+            }
+
+            return result;
 		}
 
 		
@@ -155,8 +165,14 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 		{
 			Resource result = null;
 
-			
-			result = _resourceMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
+            if(key.Revision == null)
+            {
+                result = _resourceMongoDbAccessor.GetItemWithLatestRevision(key.ID);
+            }
+            else
+            {
+                result = _resourceMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
+            }
 			
 			return result;
 		}
@@ -165,9 +181,15 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 		{
 			Statement result = null;
 
-			result = _statementMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
-			
-			return result;
+            if (key.Revision == null)
+            {
+                result = _statementMongoDbAccessor.GetItemWithLatestRevision(key.ID);
+            }
+            else
+            {
+                result = _statementMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
+            }
+            return result;
 		}
 
 		public override string GetLatestHierarchyRevision(string hierarchyID)
