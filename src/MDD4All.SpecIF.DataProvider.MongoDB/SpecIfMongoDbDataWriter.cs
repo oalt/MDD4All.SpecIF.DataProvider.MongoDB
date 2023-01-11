@@ -3,17 +3,17 @@
  */
 using MDD4All.MongoDB.DataAccess.Generic;
 using MDD4All.SpecIF.DataModels;
-using MDD4All.SpecIF.DataModels.BaseTypes;
 using MDD4All.SpecIF.DataModels.Helpers;
+using MDD4All.SpecIF.DataProvider.Base;
+using MDD4All.SpecIF.DataProvider.Base.DataModels;
+using MDD4All.SpecIF.DataProvider.Base.Exceptions;
 using MDD4All.SpecIF.DataProvider.Contracts;
-using MDD4All.SpecIF.DataProvider.Contracts.DataModels;
-using MDD4All.SpecIF.DataProvider.Contracts.Exceptions;
 using System;
 using System.Collections.Generic;
 
 namespace MDD4All.SpecIF.DataProvider.MongoDB
 {
-	public class SpecIfMongoDbDataWriter : AbstractSpecIfDataWriter
+    public class SpecIfMongoDbDataWriter : AbstractSpecIfDataWriter
 	{
 		private string DATABASE_NAME = "specif";
 

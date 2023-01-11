@@ -3,16 +3,15 @@
  */
 using MDD4All.MongoDB.DataAccess.Generic;
 using MDD4All.SpecIF.DataModels;
-using MDD4All.SpecIF.DataProvider.Contracts;
+using MDD4All.SpecIF.DataProvider.Base;
+using MDD4All.SpecIF.DataProvider.Base.Cache;
 using MongoDB.Bson;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace MDD4All.SpecIF.DataProvider.MongoDB
 {
 
-	public class SpecIfMongoDbMetadataReader : AbstractSpecIfMetadataReader
+    public class SpecIfMongoDbMetadataReader : AbstractSpecIfMetadataReader
 	{
 		private const string DATABASE_NAME = "specif";
 
@@ -22,13 +21,21 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 
 		private MongoDBDataAccessor<DataType> _dataTypeMongoDbAccessor;
 
-		public SpecIfMongoDbMetadataReader(string connectionString)
+        public SpecIfMongoDbMetadataReader(string connectionString)
 		{
 			_resourceClassMongoDbAccessor = new MongoDBDataAccessor<ResourceClass>(connectionString, DATABASE_NAME);
 			_propertyClassMongoDbAccessor = new MongoDBDataAccessor<PropertyClass>(connectionString, DATABASE_NAME);
 			_dataTypeMongoDbAccessor = new MongoDBDataAccessor<DataType>(connectionString, DATABASE_NAME);
             _statementClassMongoDbAccessor = new MongoDBDataAccessor<StatementClass>(connectionString, DATABASE_NAME);
-		}
+		
+            if(!MetadataCache.IsInitialized())
+            {
+                MetadataCache.Initialize(this);
+            }
+        }
+
+
+        
 
         public override List<DataType> GetAllDataTypeRevisions(string dataTypeID)
         {
@@ -131,8 +138,24 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 		{
             DataType result = null;
 
+            if (!string.IsNullOrEmpty(key.ID))
+            {
+                if (!string.IsNullOrEmpty(key.Revision))
+                {
+                    if (MetadataCache.DataTypesCache.ContainsKey(key))
+                    {
+                        result = MetadataCache.DataTypesCache[key];
+                    }
+                }
+                else
+                {
+                    if (MetadataCache.RevisionlessDataTypes.ContainsKey(key.ID))
+                    {
+                        result = MetadataCache.RevisionlessDataTypes[key.ID];
+                    }
+                }
+            }
             
-            result = _dataTypeMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
             
             return result;
 		}
@@ -183,8 +206,24 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 		{
 			PropertyClass result = null;
 
-			
-			result = _propertyClassMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
+            if (!string.IsNullOrEmpty(key.ID))
+            {
+                if (!string.IsNullOrEmpty(key.Revision))
+                {
+                    if (MetadataCache.PropertyClassesCache.ContainsKey(key))
+                    {
+                        result = MetadataCache.PropertyClassesCache[key];
+                    }
+                }
+                else
+                {
+                    if (MetadataCache.RevisionlessPropertyClasses.ContainsKey(key.ID))
+                    {
+                        result = MetadataCache.RevisionlessPropertyClasses[key.ID];
+                    }
+                }
+            }
+            
 			
 			return result;
 		}
@@ -193,9 +232,23 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 		{
 			ResourceClass result = null;
 
-			
-			result = _resourceClassMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
-			
+            if (!string.IsNullOrEmpty(key.ID))
+            {
+                if (!string.IsNullOrEmpty(key.Revision))
+                {
+                    if (MetadataCache.ResourceClassesCache.ContainsKey(key))
+                    {
+                        result = MetadataCache.ResourceClassesCache[key];
+                    }
+                }
+                else
+                {
+                    if (MetadataCache.RevisionlessResourceClasses.ContainsKey(key.ID))
+                    {
+                        result = MetadataCache.RevisionlessResourceClasses[key.ID];
+                    }
+                }
+            }
 			return result;
 		}
 
@@ -203,10 +256,25 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 		{
 			StatementClass result = null;
 
+            if (!string.IsNullOrEmpty(key.ID))
+            {
+                if (!string.IsNullOrEmpty(key.Revision))
+                {
+                    if(MetadataCache.StatementClassesCache.ContainsKey(key))
+                    {
+                        result = MetadataCache.StatementClassesCache[key];
+                    }
+                   
+                }
+                else
+                {
+                    if (MetadataCache.RevisionlessStatementClasses.ContainsKey(key.ID))
+                    {
+                        result = MetadataCache.RevisionlessStatementClasses[key.ID];
+                    }
+                }
+            }
             
-            result = _statementClassMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
-            
-
 			return result;
 		}
 	}

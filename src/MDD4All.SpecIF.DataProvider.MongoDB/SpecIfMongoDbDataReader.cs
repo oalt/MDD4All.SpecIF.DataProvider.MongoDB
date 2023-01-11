@@ -4,11 +4,12 @@
 using MDD4All.MongoDB.DataAccess.Generic;
 using MDD4All.SpecIF.DataModels;
 using MDD4All.SpecIF.DataProvider.Contracts;
-using MDD4All.SpecIF.DataProvider.Contracts.Exceptions;
+using MDD4All.SpecIF.DataProvider.Base.Exceptions;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MDD4All.SpecIF.DataProvider.Base;
 
 namespace MDD4All.SpecIF.DataProvider.MongoDB
 {
