@@ -4,7 +4,6 @@
 using MDD4All.MongoDB.DataAccess.Generic;
 using MDD4All.SpecIF.DataModels;
 using MDD4All.SpecIF.DataProvider.Base;
-using MDD4All.SpecIF.DataProvider.Base.Cache;
 using MongoDB.Bson;
 using System.Collections.Generic;
 
@@ -27,15 +26,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 			_propertyClassMongoDbAccessor = new MongoDBDataAccessor<PropertyClass>(connectionString, DATABASE_NAME);
 			_dataTypeMongoDbAccessor = new MongoDBDataAccessor<DataType>(connectionString, DATABASE_NAME);
             _statementClassMongoDbAccessor = new MongoDBDataAccessor<StatementClass>(connectionString, DATABASE_NAME);
-		
-            if(!MetadataCache.IsInitialized())
-            {
-                MetadataCache.Initialize(this);
-            }
         }
-
-
-        
 
         public override List<DataType> GetAllDataTypeRevisions(string dataTypeID)
         {
@@ -138,27 +129,10 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 		{
             DataType result = null;
 
-            if (!string.IsNullOrEmpty(key.ID))
-            {
-                if (!string.IsNullOrEmpty(key.Revision))
-                {
-                    if (MetadataCache.DataTypesCache.ContainsKey(key))
-                    {
-                        result = MetadataCache.DataTypesCache[key];
-                    }
-                }
-                else
-                {
-                    if (MetadataCache.RevisionlessDataTypes.ContainsKey(key.ID))
-                    {
-                        result = MetadataCache.RevisionlessDataTypes[key.ID];
-                    }
-                }
-            }
-            
-            
+            result = _dataTypeMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
+
             return result;
-		}
+        }
 
 		public override string GetLatestPropertyClassRevision(string propertyClassID)
 		{
@@ -204,78 +178,33 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 
 		public override PropertyClass GetPropertyClassByKey(Key key)
 		{
-			PropertyClass result = null;
+            PropertyClass result = null;
 
-            if (!string.IsNullOrEmpty(key.ID))
-            {
-                if (!string.IsNullOrEmpty(key.Revision))
-                {
-                    if (MetadataCache.PropertyClassesCache.ContainsKey(key))
-                    {
-                        result = MetadataCache.PropertyClassesCache[key];
-                    }
-                }
-                else
-                {
-                    if (MetadataCache.RevisionlessPropertyClasses.ContainsKey(key.ID))
-                    {
-                        result = MetadataCache.RevisionlessPropertyClasses[key.ID];
-                    }
-                }
-            }
-            
-			
-			return result;
-		}
+
+            result = _propertyClassMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
+
+            return result;
+        }
 
 		public override ResourceClass GetResourceClassByKey(Key key)
 		{
-			ResourceClass result = null;
+            ResourceClass result = null;
 
-            if (!string.IsNullOrEmpty(key.ID))
-            {
-                if (!string.IsNullOrEmpty(key.Revision))
-                {
-                    if (MetadataCache.ResourceClassesCache.ContainsKey(key))
-                    {
-                        result = MetadataCache.ResourceClassesCache[key];
-                    }
-                }
-                else
-                {
-                    if (MetadataCache.RevisionlessResourceClasses.ContainsKey(key.ID))
-                    {
-                        result = MetadataCache.RevisionlessResourceClasses[key.ID];
-                    }
-                }
-            }
-			return result;
-		}
+
+            result = _resourceClassMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
+
+            return result;
+        }
 
 		public override StatementClass GetStatementClassByKey(Key key)
 		{
-			StatementClass result = null;
+            StatementClass result = null;
 
-            if (!string.IsNullOrEmpty(key.ID))
-            {
-                if (!string.IsNullOrEmpty(key.Revision))
-                {
-                    if(MetadataCache.StatementClassesCache.ContainsKey(key))
-                    {
-                        result = MetadataCache.StatementClassesCache[key];
-                    }
-                   
-                }
-                else
-                {
-                    if (MetadataCache.RevisionlessStatementClasses.ContainsKey(key.ID))
-                    {
-                        result = MetadataCache.RevisionlessStatementClasses[key.ID];
-                    }
-                }
-            }
-            
-			return result;
-		}
+
+            result = _statementClassMongoDbAccessor.GetItemById(key.ID + "_R_" + key.Revision);
+
+
+            return result;
+        }
 	}
 }
