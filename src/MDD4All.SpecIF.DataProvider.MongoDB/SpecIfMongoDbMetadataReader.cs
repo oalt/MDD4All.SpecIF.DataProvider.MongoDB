@@ -206,5 +206,10 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 
             return result;
         }
-	}
+
+        public override void NotifyMetadataChanged()
+        {
+            ;
+        }
+    }
 }
