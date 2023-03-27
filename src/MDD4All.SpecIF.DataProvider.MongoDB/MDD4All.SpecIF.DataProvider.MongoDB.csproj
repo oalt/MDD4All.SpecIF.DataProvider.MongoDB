@@ -12,14 +12,21 @@
     <Description>SpecIF data provider for MongoDB.</Description>
     <Copyright>(c) MDD4All.de</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>Nuget.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MDD4All.MongoDB.DataAccess.Generic" Version="2.0.2.5" />
-    <PackageReference Include="MDD4All.SpecIF.DataModels.RightsManagement" Version="2.0.0.2" />
-    <PackageReference Include="MDD4All.SpecIF.DataProvider.Contracts" Version="3.0.0.10" />
-    <PackageReference Include="MongoDB.Driver.signed" Version="2.12.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="2.2.0" />
+    <PackageReference Include="MDD4All.MongoDB.DataAccess.Generic" Version="3.0.0.10" />
+    <PackageReference Include="MDD4All.SpecIF.DataModels.RightsManagement" Version="3.0.0.6" />
+    <PackageReference Include="MDD4All.SpecIF.DataProvider.Base" Version="2.0.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Nuget.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
