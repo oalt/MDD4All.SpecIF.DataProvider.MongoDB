@@ -52,6 +52,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
         public override void AddNodeAsFirstChild(string parentNodeId, Node newNode)
 		{
             Node parentNode = _nodeMongoDbAccessor.GetItemWithLatestRevision(parentNodeId);
+            newNode.ProjectID = parentNode.ProjectID ?? DEFAULT_PROJECT;
 
             if (parentNode != null)
             {
@@ -70,11 +71,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
                 parentNode.NodeReferences.Insert(0, new Key(newNode.ID, newNode.Revision));
 
                 _hierarchyMongoDbAccessor.Update(parentNode, parentNode.Id);
-
-               
             }
-            
-
         }
 
         public override void AddNodeAsPredecessor(string predecessorID, Node newNode)
@@ -82,6 +79,8 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             Node parentNode = _dataReader.GetParentNode(new Key { ID = predecessorID, Revision = null });
 
             Node predecessor = _dataReader.GetNodeByKey(new Key { ID = predecessorID, Revision = null });
+
+            newNode.ProjectID = predecessor.ProjectID ?? DEFAULT_PROJECT;
 
             if (parentNode != null && predecessor != null)
             {
@@ -127,6 +126,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             if (nodeToUpdate != null)
             {
                 hierarchyToUpdate.IsHierarchyRoot = nodeToUpdate.IsHierarchyRoot;
+                hierarchyToUpdate.ProjectID = nodeToUpdate.ProjectID ?? DEFAULT_PROJECT;
             }
 
             Node oldParent = _dataReader.GetParentNode(new Key { ID = hierarchyToUpdate.ID, Revision = null });
@@ -137,7 +137,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             {
                 Node newParent = _dataReader.GetNodeByKey(new Key { ID = parentID, Revision = null });
 
-                if (newParent != null)
+                if (newParent != null && oldParent != null)
                 {
 
                     if (oldParent.Id == newParent.Id)
@@ -354,19 +354,13 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 			}
 		}
 
+
         public override void AddHierarchy(Node hierarchy, string projectID = null)
 		{
             hierarchy.IsHierarchyRoot = true;
 
-            if (projectID == null)
-            {
-                hierarchy.ProjectID = DEFAULT_PROJECT;
-            }
-            else
-            {
-                hierarchy.ProjectID = projectID;
-            }
-
+            hierarchy.ProjectID = projectID ?? DEFAULT_PROJECT;
+            
             AddHierarchyRecusrsively(hierarchy);
 		}
 
