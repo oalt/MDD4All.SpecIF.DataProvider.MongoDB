@@ -3,6 +3,7 @@
  */
 using MDD4All.MongoDB.DataAccess.Generic;
 using MDD4All.SpecIF.DataModels;
+using MDD4All.SpecIF.DataModels.DiagramMetadata;
 using MDD4All.SpecIF.DataProvider.Base;
 
 namespace MDD4All.SpecIF.DataProvider.MongoDB
@@ -63,5 +64,15 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 		{
 			_statementClassMongoDbAccessor.Update(statementClass, statementClass.Id);
 		}
-	}
+
+        public override void AddDiagramObjectClass(DiagramObjectClass diagramObjectClass)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void UpdateDiagramObjectClass(DiagramObjectClass diagramObjectClass)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

@@ -3,6 +3,7 @@
  */
 using MDD4All.MongoDB.DataAccess.Generic;
 using MDD4All.SpecIF.DataModels;
+using MDD4All.SpecIF.DataModels.DiagramMetadata;
 using MDD4All.SpecIF.DataProvider.Base;
 using MongoDB.Bson;
 using System.Collections.Generic;
@@ -52,8 +53,17 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 			return new List<DataType>(_dataTypeMongoDbAccessor.GetItems());
 		}
 
+        public override List<DiagramObjectClass> GetAllDiagramObjectClasses()
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public override List<PropertyClass> GetAllPropertyClasses()
+        public override List<DiagramObjectClass> GetAllDiagramObjectClassesRevisions(string classID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override List<PropertyClass> GetAllPropertyClasses()
 		{
 			return new List<PropertyClass>(_propertyClassMongoDbAccessor.GetItems());
 		}
@@ -134,7 +144,12 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             return result;
         }
 
-		public override string GetLatestPropertyClassRevision(string propertyClassID)
+        public override DiagramObjectClass GetDiagramObjectClassByKey(Key key)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override string GetLatestPropertyClassRevision(string propertyClassID)
 		{
             string result = null;
 
