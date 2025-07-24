@@ -291,7 +291,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             }
         }
 
-        public override void DeleteNode(string nodeID)
+        public override void DeleteNode(string nodeID, string projectID)
         {
             // we do not delete the element from the database, just remove the reference.
 
