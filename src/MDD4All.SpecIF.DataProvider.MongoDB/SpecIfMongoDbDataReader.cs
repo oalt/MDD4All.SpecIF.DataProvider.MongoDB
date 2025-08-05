@@ -570,5 +570,10 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 
             return result;
         }
+
+        public override string GetProjectIDFromNodeID(string nodeID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
