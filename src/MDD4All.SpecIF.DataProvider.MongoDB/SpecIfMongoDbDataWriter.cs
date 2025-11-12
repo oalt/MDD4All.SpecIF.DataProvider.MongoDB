@@ -49,7 +49,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             InitializeIdentificators();
 		}
 
-        public override void AddNodeAsFirstChild(string parentNodeId, Node newNode)
+        public override void AddNodeAsFirstChild(string parentNodeId, Node newNode, string projectID = null)
 		{
             Node parentNode = _nodeMongoDbAccessor.GetItemWithLatestRevision(parentNodeId);
             newNode.ProjectID = parentNode.ProjectID ?? DEFAULT_PROJECT;
@@ -74,7 +74,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             }
         }
 
-        public override void AddNodeAsPredecessor(string predecessorID, Node newNode)
+        public override void AddNodeAsPredecessor(string predecessorID, Node newNode, string projectID = null)
         {
             Node parentNode = _dataReader.GetParentNode(new Key { ID = predecessorID, Revision = null });
 
@@ -116,7 +116,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             }
         }
 
-        public override Node UpdateHierarchy(Node hierarchyToUpdate, string parentID = null, string predecessorID = null)
+        public override Node UpdateHierarchy(Node hierarchyToUpdate, string parentID = null, string predecessorID = null, string projectID = null)
         {
 
             Node result = hierarchyToUpdate;
@@ -229,7 +229,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             return result;
         }
 
-        public override void MoveNode(string nodeID, string newParentID, string newSiblingId)
+        public override void MoveNode(string nodeID, string newParentID, string newSiblingId, string projectID = null)
         {
             try
             {
@@ -327,12 +327,12 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
             }
         }
 
-        public override void AddResource(Resource resource)
+        public override void AddResource(Resource resource, string projectID = null)
 		{
             _resourceMongoDbAccessor.Add(resource);
         }
 
-        public override void AddStatement(Statement statement)
+        public override void AddStatement(Statement statement, string projectID = null)
 		{
 			_statementMongoDbAccessor.Add(statement);
 		}
@@ -405,7 +405,7 @@ namespace MDD4All.SpecIF.DataProvider.MongoDB
 
         }
 
-        public override Resource UpdateResource(Resource resource)
+        public override Resource UpdateResource(Resource resource, string projectID = null)
         {
             Resource result = null;
 
